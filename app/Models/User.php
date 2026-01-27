@@ -4,8 +4,10 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\Link;
 
 class User extends Authenticatable
 {
@@ -46,7 +48,12 @@ class User extends Authenticatable
         ];
     }
 
-    public function links()
+    /**
+     * Get all links for this user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function links(): HasMany
     {
         return $this->hasMany(Link::class);
     }
