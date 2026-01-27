@@ -59,7 +59,7 @@ php artisan key:generate
 DB_CONNECTION=pgsql
 DB_HOST=127.0.0.1
 DB_PORT=5432
-DB_DATABASE=guarda_links
+DB_DATABASE=guarda_links (Ou o nome da sua database)
 DB_USERNAME=postgres
 DB_PASSWORD=sua_senha
 ```
