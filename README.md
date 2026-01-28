@@ -15,6 +15,7 @@ Uma aplicação web para centralizar, organizar, compartilhar e gerenciar seus l
 - ✅ **Autorização**: Apenas o proprietário pode editar/deletar seus próprios links
 - ✅ **Interface Responsiva**: Funciona perfeitamente em desktop, tablet e mobile
 - ✅ **Design Moderno**: UI/UX limpa com Tailwind CSS
+- ✅ **Compartilhe Seus Links**: Compartilhe todas suas redes sociais com apenas um link
 
 ## 🛠️ Stack Tecnológico
 
