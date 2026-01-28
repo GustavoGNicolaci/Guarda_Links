@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LinkController;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 // Rotas públicas
@@ -14,6 +15,9 @@ Route::post('/register', [AuthController::class, 'register']);
 
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
+
+// Rota pública para compartilhar links
+Route::get('/share/{user}', [LinkController::class, 'share'])->name('links.share');
 
 // Rotas protegidas (requer autenticação)
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
