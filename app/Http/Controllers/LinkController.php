@@ -67,4 +67,10 @@ class LinkController extends Controller
 
         return redirect()->route('links.index')->with('success', 'Link deletado com sucesso!');
     }
+
+    public function share(User $user)
+    {
+        $links = $user->links()->get();
+        return view('links.share', compact('user', 'links'));
+    }
 }
