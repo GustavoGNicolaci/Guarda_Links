@@ -73,6 +73,9 @@
                                 <a href="{{ route('profile.settings') }}" class="block px-4 py-2 text-gray-700 hover:bg-blue-50 transition text-sm font-medium">
                                     ⚙️ Configurações
                                 </a>
+                                <a href="{{ route('profile.edit') }}" class="block px-4 py-2 text-gray-700 hover:bg-blue-50 transition text-sm font-medium">
+                                    ✏️ Editar Perfil
+                                </a>
                                 <hr class="my-2">
                                 <a href="{{ route('profile.delete') }}" class="block px-4 py-2 text-red-600 hover:bg-red-50 transition text-sm font-bold">
                                     🗑️ Deletar Perfil

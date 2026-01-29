@@ -17,7 +17,12 @@
 
     <!-- Profile Card -->
     <div class="bg-white/80 backdrop-filter backdrop-blur rounded-2xl shadow-xl p-8 border border-blue-100 mb-8">
-        <h2 class="text-2xl font-bold text-gray-800 mb-6">👤 Informações da Conta</h2>
+        <div class="flex justify-between items-start mb-6">
+            <h2 class="text-2xl font-bold text-gray-800">👤 Informações da Conta</h2>
+            <a href="{{ route('profile.edit') }}" class="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-4 py-2 rounded-lg hover:shadow-lg transition font-bold">
+                ✏️ Editar
+            </a>
+        </div>
         
         <div class="space-y-4">
             <div class="border-b border-gray-200 pb-4">

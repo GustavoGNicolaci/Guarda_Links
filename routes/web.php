@@ -28,6 +28,8 @@ Route::resource('links', LinkController::class)->middleware('auth');
 // Rotas de Perfil (protegidas)
 Route::middleware('auth')->group(function () {
     Route::get('/profile/settings', [ProfileController::class, 'settings'])->name('profile.settings');
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
     Route::get('/profile/delete', [ProfileController::class, 'delete'])->name('profile.delete');
     Route::delete('/profile/delete', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
