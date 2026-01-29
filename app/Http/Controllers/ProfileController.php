@@ -79,4 +79,61 @@ class ProfileController extends Controller
         return redirect('/')
             ->with('success', 'Sua conta foi deletada permanentemente. Sentiremos sua falta! 😢');
     }
+
+    /**
+     * Mostrar página de editar perfil
+     * 
+     * @return \Illuminate\View\View
+     */
+    public function edit()
+    {
+        return view('profile.edit');
+    }
+
+    /**
+     * Atualizar informações do perfil
+     * 
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update(Request $request)
+    {
+        /** @var User $user */
+        $user = Auth::user();
+
+        // Validar os dados
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'password' => ['nullable', 'string', 'min:6', 'confirmed'],
+            'current_password' => ['required'],
+        ], [
+            'name.required' => 'Nome é obrigatório.',
+            'name.string' => 'Nome deve ser um texto.',
+            'name.max' => 'Nome não pode ter mais de 255 caracteres.',
+            'password.min' => 'Senha deve ter no mínimo 6 caracteres.',
+            'password.confirmed' => 'As senhas não correspondem.',
+            'current_password.required' => 'Senha atual é obrigatória.',
+        ]);
+
+        // Verificar se a senha atual está correta
+        if (!Hash::check($validated['current_password'], $user->password)) {
+            return back()
+                ->withInput()
+                ->withErrors(['current_password' => 'Senha atual incorreta.']);
+        }
+
+        // Atualizar nome
+        $user->name = $validated['name'];
+
+        // Atualizar senha se fornecida
+        if ($validated['password']) {
+            $user->password = Hash::make($validated['password']);
+        }
+
+        $user->save();
+
+        return back()
+            ->with('success', 'Perfil atualizado com sucesso! ✅');
+    }
 }
+
