@@ -29,6 +29,21 @@
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.18);
         }
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            z-index: 50;
+            min-width: 200px;
+            margin-top: 0.5rem;
+        }
+        .dropdown-menu.active {
+            display: block;
+        }
     </style>
 </head>
 <body class="bg-gradient-to-br from-blue-50 via-white to-green-50 min-h-screen">
@@ -44,16 +59,40 @@
 
                 <div class="flex items-center gap-4">
                     @auth
-                        <div class="hidden sm:flex items-center gap-1 px-3 py-1 rounded-full bg-gradient-to-r from-blue-100 to-green-100">
-                            <span class="text-sm font-medium text-gray-800">👤 {{ Auth::user()->name }}</span>
+                        <div class="relative">
+                            <button onclick="toggleProfileMenu()" class="hidden sm:flex items-center gap-2 px-3 py-2 rounded-full bg-gradient-to-r from-blue-100 to-green-100 hover:shadow-md transition cursor-pointer">
+                                <span class="text-sm font-medium text-gray-800">👤 {{ Auth::user()->name }}</span>
+                                <span class="text-xs">▼</span>
+                            </button>
+                            
+                            <!-- Dropdown Menu -->
+                            <div id="profileMenu" class="dropdown-menu right-0 mt-2">
+                                <a href="{{ route('links.index') }}" class="block px-4 py-2 text-gray-700 hover:bg-blue-50 transition text-sm font-medium">
+                                    📋 Meus Links
+                                </a>
+                                <a href="{{ route('profile.settings') }}" class="block px-4 py-2 text-gray-700 hover:bg-blue-50 transition text-sm font-medium">
+                                    ⚙️ Configurações
+                                </a>
+                                <hr class="my-2">
+                                <a href="{{ route('profile.delete') }}" class="block px-4 py-2 text-red-600 hover:bg-red-50 transition text-sm font-bold">
+                                    🗑️ Deletar Perfil
+                                </a>
+                                <form action="{{ route('logout') }}" method="POST" class="block">
+                                    @csrf
+                                    <button type="submit" class="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 transition text-sm font-medium">
+                                        🚪 Sair
+                                    </button>
+                                </form>
+                            </div>
                         </div>
-                        <a href="{{ route('links.index') }}" class="text-gray-700 hover:text-blue-600 font-medium transition duration-200 px-3 py-2 rounded-lg hover:bg-blue-50">
-                            <span class="hidden sm:inline">📋</span> Meus Links
+                        
+                        <a href="{{ route('links.index') }}" class="sm:hidden text-gray-700 hover:text-blue-600 font-medium transition duration-200 px-3 py-2 rounded-lg hover:bg-blue-50">
+                            📋 Links
                         </a>
-                        <form action="{{ route('logout') }}" method="POST" class="inline">
+                        <form action="{{ route('logout') }}" method="POST" class="sm:hidden inline">
                             @csrf
                             <button type="submit" class="text-gray-700 hover:text-red-600 font-medium transition duration-200 px-3 py-2 rounded-lg hover:bg-red-50">
-                                <span class="hidden sm:inline">🚪</span> Sair
+                                🚪 Sair
                             </button>
                         </form>
                     @else
@@ -104,5 +143,21 @@
             <p>&copy; 2026 Guarda Links. Todos os direitos reservados.</p>
         </div>
     </footer>
+
+    <script>
+        function toggleProfileMenu() {
+            const menu = document.getElementById('profileMenu');
+            menu.classList.toggle('active');
+        }
+
+        // Fechar menu ao clicar fora
+        document.addEventListener('click', function(event) {
+            const menu = document.getElementById('profileMenu');
+            const profileBtn = event.target.closest('button');
+            if (!profileBtn && menu) {
+                menu.classList.remove('active');
+            }
+        });
+    </script>
 </body>
 </html>

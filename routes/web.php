@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LinkController;
+use App\Http\Controllers\ProfileController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
@@ -23,3 +24,11 @@ Route::get('/share/{user}', [LinkController::class, 'share'])->name('links.share
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::resource('links', LinkController::class)->middleware('auth');
+
+// Rotas de Perfil (protegidas)
+Route::middleware('auth')->group(function () {
+    Route::get('/profile/settings', [ProfileController::class, 'settings'])->name('profile.settings');
+    Route::get('/profile/delete', [ProfileController::class, 'delete'])->name('profile.delete');
+    Route::delete('/profile/delete', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
